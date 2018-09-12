@@ -21,10 +21,12 @@ class App extends React.Component {
   };
 
   addTrack(track) {
-    if (this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
-  return;
+      if (!this.state.playlistTracks.find(playlistTrack => playlistTrack.id === track.id)) {
+        this.setState(prevState => ({
+          playlistTracks: [...prevState.playlistTracks, track]
+        }));
+      }
     }
-  };
 
   removeTrack(track) {
     this.setState({
@@ -66,7 +68,8 @@ class App extends React.Component {
           playlistName={this.state.playlistName}
           playlistTracks={this.state.playlistTracks}
           onRemove={this.removeTrack}
-          onNameChange={this.updatePlaylistName} />
+          onNameChange={this.updatePlaylistName}
+          savePlaylist={this.savePlaylist} />
       </div>
     </div>
     </div>
